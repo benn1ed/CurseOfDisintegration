@@ -22,14 +22,14 @@ eclipse
 run
 
 # custom
-*.bat
-*gradlew*
-gradle.properties
-build.gradle
 CREDITS.txt
 changelog.txt
-src/test/
-src/generated/
+# *.bat
+# *gradlew*
+# gradle.properties
+# build.gradle
+# src/test/
+# src/generated/
 
 # Files from Forge MDK
 forge*changelog.txt
