@@ -108,7 +108,7 @@ public class Disintegration implements IDisintegration
 				increment = Config.CAP.creatureHurt.get().shortValue();
 			}
 		}
-		else if (Config.CAP.processEveryHit.get())
+		else
 		{
 			increment = Config.CAP.hurt.get().shortValue();
 		}

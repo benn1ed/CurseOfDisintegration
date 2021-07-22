@@ -141,9 +141,6 @@ public class Config
 		CAP.hit = BUILDER
 				.comment("The amount of disintegration gained upon hitting another creature")
 				.defineInRange("hit", 30, Short.MIN_VALUE, Short.MAX_VALUE);
-		CAP.processEveryHit = BUILDER
-				.comment("If true, a player will gain disintegration upon being hit by anything, otherwise only upon being hit by other creatures")
-				.define("processEveryHit", true);
 		
 		List<String> l1 = new ArrayList<String>();
 		l1.add("creatureWhitelist");
