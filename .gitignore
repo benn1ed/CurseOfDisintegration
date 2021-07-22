@@ -22,12 +22,12 @@ eclipse
 run
 
 # custom
+CREDITS.txt
+changelog.txt
 # *.bat
 # *gradlew*
 # gradle.properties
 # build.gradle
-# CREDITS.txt
-# changelog.txt
 # src/test/
 # src/generated/
 
