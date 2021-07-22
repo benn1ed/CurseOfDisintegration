@@ -92,10 +92,6 @@ public class Disintegration implements IDisintegration
 	public void onHurt(PlayerEntity player, LivingDamageEvent event)
 	{
 		Entity sourceEnt = event.getSource().getEntity();
-		if (!Config.CAP.processEveryHit.get() && sourceEnt == null)
-		{
-			return;
-		}
 		short increment = 0;
 		if (sourceEnt instanceof PlayerEntity)
 		{
@@ -104,18 +100,17 @@ public class Disintegration implements IDisintegration
 				increment = Config.CAP_P.hurt.get().shortValue();
 			}
 		}
-		else
+		else if (sourceEnt instanceof LivingEntity)
 		{
-			boolean living = sourceEnt instanceof LivingEntity;
-			if (!Config.CAP.processEveryHit.get() && !living)
+			LivingEntity living = (LivingEntity)sourceEnt;
+			if (livingSatisfiesLists(living))
 			{
-				return;
+				increment = Config.CAP.creatureHurt.get().shortValue();
 			}
-			if (living && !livingSatisfiesLists((LivingEntity)sourceEnt))
-			{
-				return;
-			}
-			increment = (short)(living ? Config.CAP.creatureHurt.get().shortValue() : Config.CAP.hurt.get().shortValue());
+		}
+		else if (Config.CAP.processEveryHit.get())
+		{
+			increment = Config.CAP.hurt.get().shortValue();
 		}
 		provoke(increment, player);
 	}
