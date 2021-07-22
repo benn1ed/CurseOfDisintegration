@@ -41,12 +41,12 @@ public class EventHandler
 	@SubscribeEvent
 	public void livingHurt(LivingDamageEvent event)
 	{
-		Entity source = event.getSource().getEntity();
-		if (event.getAmount() <= 0 && (source == null || !(source instanceof LivingEntity)))
+		Entity ent = event.getEntity();
+		if (event.getAmount() <= 0 && ent instanceof PlayerEntity)
 		{
 			return;
 		}
-		Entity ent = event.getEntity();
+		Entity source = event.getSource().getEntity();
 		boolean sourceIsPlayer = source instanceof PlayerEntity;
 		boolean entIsPlayer = ent instanceof PlayerEntity;
 		if (!(sourceIsPlayer || entIsPlayer))
