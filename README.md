@@ -1,4 +1,4 @@
-<img src="https://media.discordapp.net/attachments/705790416947249253/867705122028781568/imgonline-com-ua-Resize-xwYGCp0Vk2uiYW.png" width=100 height=100/>
+<img src="https://i.ibb.co/SPyRKHm/curseofdisintegration-icon.png" width=100 height=100/>
 
 # Curse of Disintegration
 Don't spend too much time under stress, otherwise you may very well find yourself being merged with the void.
