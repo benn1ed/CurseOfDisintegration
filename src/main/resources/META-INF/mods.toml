@@ -1,14 +1,14 @@
 modLoader="javafml" #mandatory
 loaderVersion="[${forge_major},)" #mandatory
 license="https://github.com/benn1ed/CurseOfDisintegration/blob/1.16.5/LICENSE"
-#issueTrackerURL="https://github.com/benn1ed/CurseOfDisintegration/issues" #optional
+issueTrackerURL="https://github.com/benn1ed/CurseOfDisintegration/issues" #optional
 
 [[mods]] #mandatory
 modId="curseofdisintegration" #mandatory
 version="${file.jarVersion}" #mandatory
 displayName="Curse of Disintegration" #mandatory
-#updateJSONURL="https://github.com/benn1ed/CurseOfDisintegration/blob/1.16.5/update.json" #optional
-#displayURL="https://www.curseforge.com/minecraft/mc-mods/curse-of-disintegration" #optional
+updateJSONURL="https://github.com/benn1ed/CurseOfDisintegration/blob/1.16.5/update.json" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/curse-of-disintegration" #optional
 logoFile="curseofdisintegration.png" #optional
 credits="toujourspareil (twitter.com/toujourspareil_) for making icons" #optional
 authors="benn1ed" #optional
