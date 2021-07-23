@@ -1,5 +1,7 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J35F8DQ)
 
+---
+
 <img src="https://i.ibb.co/SPyRKHm/curseofdisintegration-icon.png" width=100 height=100/>
 
 # Curse of Disintegration
