@@ -22,6 +22,7 @@ eclipse
 run
 
 # custom
+.github
 CREDITS.txt
 changelog.txt
 # *.bat
