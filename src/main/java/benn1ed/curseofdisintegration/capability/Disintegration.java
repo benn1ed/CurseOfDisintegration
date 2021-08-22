@@ -1,26 +1,17 @@
 package benn1ed.curseofdisintegration.capability;
 
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import benn1ed.curseofdisintegration.DisintegrationUnit;
-import benn1ed.curseofdisintegration.Frames;
-import benn1ed.curseofdisintegration.ModData;
-import benn1ed.curseofdisintegration.config.ModConfig;
-import benn1ed.curseofdisintegration.network.NetManager;
-import benn1ed.curseofdisintegration.network.NetPacketDIValue;
-import benn1ed.curseofdisintegration.util.EntityHelper;
-import benn1ed.curseofdisintegration.util.Utils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
+import java.util.regex.*;
+import benn1ed.curseofdisintegration.*;
+import benn1ed.curseofdisintegration.config.*;
+import benn1ed.curseofdisintegration.network.*;
+import benn1ed.curseofdisintegration.potion.*;
+import benn1ed.curseofdisintegration.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class Disintegration implements IDisintegration
 {
@@ -29,6 +20,8 @@ public class Disintegration implements IDisintegration
 
 	public final Frames frames = new Frames(ModConfig.capability.disintegrationFrames);
 	private final DisintegrationUnit _value = new DisintegrationUnit((short)0, (short)ModConfig.capability.maxDisintegration);
+	private float _multiplier = 1f;
+	private boolean _disintegrateOnMax = true;
 	private int disMitCd = 0;
 	
 	public Disintegration()
@@ -47,11 +40,40 @@ public class Disintegration implements IDisintegration
 	{	
 		_value.set(value);
 	}
+
+	@Override
+	public float getMultiplier()
+	{
+		return _multiplier;
+	}
+
+	@Override
+	public void setMultiplier(float value)
+	{
+		_multiplier = value;
+	}
+	
+	@Override
+	public boolean getDisintegrateOnMax()
+	{
+		return _disintegrateOnMax;
+	}
+	
+	@Override
+	public void setDisintegrateOnMax(boolean value)
+	{
+		_disintegrateOnMax = value;
+	}
 	
 	@Override
 	public void incrementValue(short value)
 	{
-		_value.increment(value);
+		float mp = Math.abs(getMultiplier());
+		if (value < 0 && mp < 1)
+		{
+			mp = 2 - mp;
+		}
+		_value.increment((short)(value * mp));
 	}
 	
 	@Override
@@ -63,7 +85,7 @@ public class Disintegration implements IDisintegration
 	@Override
 	public void tick(EntityPlayer player)
 	{
-		if (player.isDead || player.isCreative() || player.isSpectator())
+		if (player.world.isRemote || player.isDead || player.isCreative() || player.isSpectator())
 		{
 			return;
 		}
@@ -73,6 +95,10 @@ public class Disintegration implements IDisintegration
 		
 		if (frames.done())
 		{
+			if (CurseOfDisintegration.integrationManager.diFramesDone(player, this))
+			{
+				frames.reset();
+			}
 			for(Entity ent : player.world.loadedEntityList)
 			{
 				if (provoke(checkEntity(ent, player), player))
@@ -87,9 +113,18 @@ public class Disintegration implements IDisintegration
 				frames.reset();
 			}
 		}
-		if (reachedLimit())
+		if (reachedLimit() && getDisintegrateOnMax())
 		{
 			IDisintegration.disintegrate(player);
+		}
+		
+		if (player.getActivePotionEffect(PotionManager.POTION) == null)
+		{
+			setMultiplier(1f);
+		}
+		if (player.getActivePotionEffect(PotionManager.CORPSE_POTION) == null)
+		{
+			setDisintegrateOnMax(true);
 		}
 	}
 	
@@ -140,14 +175,21 @@ public class Disintegration implements IDisintegration
 	@Override
 	public void setAndSync(short value, EntityPlayer player)
 	{
-		setValue(value);
-		sync(player);
+		if (value != getValue())
+		{
+			setValue(value);
+			sync(player);
+		}
 	}
 	
 	@Override
 	public void incrementAndSync(short increment, EntityPlayer player)
 	{
-		setAndSync((short)(getValue() + increment), player);
+		if (increment != 0)
+		{
+			incrementValue(increment);
+			sync(player);
+		}
 	}
 	
 	@Override

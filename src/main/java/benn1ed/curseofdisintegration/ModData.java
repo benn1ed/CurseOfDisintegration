@@ -8,6 +8,9 @@ public class ModData
     public static final String NAME = "Curse Of Disintegration";
     public static final String VERSION = "1.0.0";
     
+    public static final ResourceLocation TRANQUILITY_ICON = new ResourceLocation(MODID, "textures/tranquility.png");
+    public static final ResourceLocation WALKING_CORPSE_ICON = new ResourceLocation(MODID, "textures/walking_corpse.png");
+    
     public static final ResourceLocation[] ICONS =
     {
     	new ResourceLocation(MODID, "textures/di_icon_full.png"),

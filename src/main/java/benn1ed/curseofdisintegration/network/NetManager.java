@@ -1,8 +1,8 @@
 package benn1ed.curseofdisintegration.network;
 
-import benn1ed.curseofdisintegration.ModData;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import benn1ed.curseofdisintegration.*;
+import net.minecraftforge.fml.common.network.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
 public class NetManager
 {

@@ -1,6 +1,6 @@
 package benn1ed.curseofdisintegration;
 
-import benn1ed.curseofdisintegration.util.Utils;
+import benn1ed.curseofdisintegration.util.*;
 
 public class Frames
 {

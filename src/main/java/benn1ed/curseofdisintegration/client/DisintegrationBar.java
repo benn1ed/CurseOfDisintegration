@@ -1,37 +1,38 @@
 package benn1ed.curseofdisintegration.client;
 
-import java.awt.Point;
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
-import benn1ed.curseofdisintegration.ModData;
-import benn1ed.curseofdisintegration.capability.IDisintegration;
-import benn1ed.curseofdisintegration.config.ModConfig;
-import benn1ed.curseofdisintegration.util.Utils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import java.awt.*;
+import java.util.*;
+import org.lwjgl.opengl.*;
+import benn1ed.curseofdisintegration.*;
+import benn1ed.curseofdisintegration.capability.*;
+import benn1ed.curseofdisintegration.config.*;
+import benn1ed.curseofdisintegration.util.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
 
 public class DisintegrationBar
 {
 	public final Point position;
-	public final FlashFrames flashFrames = new FlashFrames(15, 40);
 	public DisintegrationBarLocation location = ModConfig.client.barLocation;
-	private final Minecraft _mc = Minecraft.getMinecraft();
-	private final Random random = new Random();
 	
+	private final Minecraft _mc = Minecraft.getMinecraft();
+	private final Random _random = new Random();
+	private final long _flashTime = 800;
+	private final long _flashPeriod = _flashTime / 5;
+	private long _flashTimeSnapshot;
+
 	public DisintegrationBar()
 	{
 		this(new Point());
 	}
-	
+
 	public DisintegrationBar(int x, int y)
 	{
 		this(new Point(x, y));
 	}
-	
+
 	public DisintegrationBar(Point pos)
 	{
 		if (pos == null)
@@ -40,7 +41,7 @@ public class DisintegrationBar
 		}
 		position = pos;
 	}
-	
+
 	public void draw(int scaledWidth, int scaledHeight)
 	{
 		EntityPlayer p = _mc.player;
@@ -48,46 +49,55 @@ public class DisintegrationBar
 		{
 			return;
 		}
-		
+
 		IDisintegration d = getDisintegration();
 		if (d == null)
 		{
 			return;
 		}
-		GL11.glEnable(GL11.GL_BLEND);
-		
 		short dis = d.getValue();
-		double ratio = (double)dis / d.getMaxDisintegration();
-		int count = (int)Math.floor(ratio * 20);
+		if (dis <= 0 && ModConfig.client.hideBarAtZero)
+		{
+			return;
+		}
+		
+		GL11.glEnable(GL11.GL_BLEND);
+
+		long delta = Minecraft.getSystemTime() - _flashTimeSnapshot;
+		double ratio = (double) dis / d.getMaxDisintegration();
+		int count = (int) Math.floor(ratio * 20);
 		boolean highRatio = ratio >= 0.55d;
 		boolean veryHighRatio = ratio >= 0.75d;
-		boolean flash = ModConfig.client.enableFlashing && flashFrames.flash();
-		boolean twitch = ModConfig.client.enableTwitching && (flashFrames.hasFlashes() || highRatio);
+		boolean flash = ModConfig.client.enableFlashing && delta <= _flashTime;
+		if (flash)
+		{
+			long period = delta / _flashPeriod;
+			flash = period == 0 || period % 2 == 0;
+		}
+		boolean twitch = ModConfig.client.enableTwitching && (flash || highRatio);
 		int twitchingAmplitude = veryHighRatio ? 2 : 1;
 
 		updatePosition(scaledWidth, scaledHeight);
-		flashFrames.tick();
-		
+
 		for (int i = 0; i < 10; i++, count -= 2)
 		{
-			drawOneIcon(i, getIdFromCount(count, ratio, p), flash, twitch, twitchingAmplitude,
-					!ModConfig.client.useAlternativeDesign ? ModData.ICONS : ModData.ICONS_FACES);
+			drawOneIcon(i, getIdFromCount(count, ratio, p), flash, twitch, twitchingAmplitude, !ModConfig.client.useAlternativeDesign ? ModData.ICONS : ModData.ICONS_FACES);
 		}
 	}
-	
-	public void setJustIncreased()
-	{
-		flashFrames.setFlashes(3);
-	}
-	
+
 	public void setJustChanged(short oldV, short newV)
 	{
 		if (newV > oldV)
 		{
-			setJustIncreased();
+			resetFlashTimeSnapshot();
 		}
 	}
-	
+
+	private void resetFlashTimeSnapshot()
+	{
+		_flashTimeSnapshot = Minecraft.getSystemTime();
+	}
+
 	private void drawOneIcon(int num, int id, boolean flash, boolean twitch, int twitchingAmplitude, ResourceLocation[] icons)
 	{
 		if (icons == null || icons.length <= 0)
@@ -96,14 +106,10 @@ public class DisintegrationBar
 		}
 		int _id = Utils.clamp(id + (flash ? 1 : 0), 0, icons.length - 1);
 		_mc.getTextureManager().bindTexture(icons[_id]);
-		GuiIngame.drawModalRectWithCustomSizedTexture(
-				position.x + 8 * num,
-				position.y + (twitch ? (int)Math.round((random.nextDouble() * (twitchingAmplitude * 2) - twitchingAmplitude)) : 0),
-				0, 0,
-				9, 9,
-				9, 9);
+		GuiIngame.drawModalRectWithCustomSizedTexture(position.x + 8 * num, position.y + (twitch ? (int) Math.round((_random.nextDouble() * (twitchingAmplitude * 2) - twitchingAmplitude)) : 0), 0, 0,
+				9, 9, 9, 9);
 	}
-	
+
 	private int getIdFromCount(int count, double ratio, EntityPlayer p)
 	{
 		if (!ModConfig.client.useAlternativeDesign)
@@ -112,13 +118,13 @@ public class DisintegrationBar
 		}
 		else
 		{
-			return count > 0 ? (count == 1 ? 4 : 2) + 4 * Utils.clamp((int)Math.floor(ratio / 0.25d), 0, 3) : 0;
+			return count > 0 ? (count == 1 ? 4 : 2) + 4 * Utils.clamp((int) Math.floor(ratio / 0.25d), 0, 3) : 0;
 		}
 	}
-	
+
 	private void updatePosition(int scaledWidth, int scaledHeight)
 	{
-		switch(location)
+		switch (location)
 		{
 		case ABOVE_HEALTH_BAR:
 			position.x = scaledWidth / 2 - 91;
@@ -183,7 +189,7 @@ public class DisintegrationBar
 		position.x += ModConfig.client.additionalXValue;
 		position.y += ModConfig.client.additionalYValue;
 	}
-	
+
 	private IDisintegration getDisintegration()
 	{
 		return IDisintegration.getFor(_mc.player);

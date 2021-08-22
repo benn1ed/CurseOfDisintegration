@@ -1,10 +1,8 @@
 package benn1ed.curseofdisintegration.capability;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
 
 public class DisintegrationProvider implements ICapabilitySerializable<NBTTagCompound>
 {

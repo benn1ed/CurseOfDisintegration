@@ -1,13 +1,9 @@
 package benn1ed.curseofdisintegration.config;
 
-import benn1ed.curseofdisintegration.ModData;
-import benn1ed.curseofdisintegration.client.DisintegrationBarLocation;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.Config.Comment;
-import net.minecraftforge.common.config.Config.Name;
-import net.minecraftforge.common.config.Config.RangeDouble;
-import net.minecraftforge.common.config.Config.RangeInt;
-import net.minecraftforge.common.config.Config.RequiresMcRestart;
+import benn1ed.curseofdisintegration.*;
+import benn1ed.curseofdisintegration.client.*;
+import net.minecraftforge.common.config.*;
+import net.minecraftforge.common.config.Config.*;
 
 @Config(modid = ModData.MODID, name = ModData.MODID, category = "")
 public class ModConfig
@@ -32,6 +28,9 @@ public class ModConfig
 	{
 		@RequiresMcRestart
 		public boolean enableMod = true;
+		
+		@RequiresMcRestart
+		public boolean registerPotionsAndItems = true;
 	}
 	
 	public static class ClientSettings
@@ -65,6 +64,9 @@ public class ModConfig
 		
 		@Comment("The bar uses alternative design with face icons instead of skull ones.")
 		public boolean useAlternativeDesign = false;
+		
+		@Comment("Whether to hide the bar at 0 disintegration value.")
+		public boolean hideBarAtZero = false;
 	}
 	
 	public static class CapabilitySettings
@@ -96,15 +98,15 @@ public class ModConfig
 		
 		@Comment("The amount of disintegration gained upon being hit by creature.")
 		@RangeInt(min = Short.MIN_VALUE, max = Short.MAX_VALUE)
-		public int onCreatureHurtValue = 160;
+		public int onCreatureHurtValue = 200;
 		
 		@Comment("The amount of disintegration gained upon being hit by other sources.")
 		@RangeInt(min = Short.MIN_VALUE, max = Short.MAX_VALUE)
-		public int onHurtValue = 60;
+		public int onHurtValue = 90;
 		
 		@Comment("The amount of disintegration gained upon hitting another creature.")
 		@RangeInt(min = Short.MIN_VALUE, max = Short.MAX_VALUE)
-		public int onHitValue = 30;
+		public int onHitValue = 50;
 		
 		@Comment({
 			"If not empty, only the creatures from this list will be counted as enemies.",
@@ -137,10 +139,10 @@ public class ModConfig
 
 		@Comment("The amount of disintegration gained upon being hit by other player.")
 		@RangeInt(min = 0, max = Short.MAX_VALUE)
-		public int onHurtValue = 200;
+		public int onHurtValue = 230;
 		
 		@Comment("The amount of disintegration gained upon hitting another player.")
 		@RangeInt(min = 0, max = Short.MAX_VALUE)
-		public int onHitValue = 50;
+		public int onHitValue = 70;
 	}
 }

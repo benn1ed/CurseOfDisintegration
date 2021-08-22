@@ -1,7 +1,7 @@
 package benn1ed.curseofdisintegration.util;
 
-import java.util.Random;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 public class Utils
 {

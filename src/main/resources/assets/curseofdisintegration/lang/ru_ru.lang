@@ -1,0 +1,25 @@
+death.attack.curseofdisintegration.disintegration.type0=%s был дезинтегрирован
+death.attack.curseofdisintegration.disintegration.type1=%s познал минус первое состояние материи
+death.attack.curseofdisintegration.disintegration.type2=%s больше нет
+death.attack.curseofdisintegration.disintegration.type3=%s выпустил слишком много адреналина
+death.attack.curseofdisintegration.disintegration.type4=Реальность больше не поддерживает %s
+
+effect.tranquility=Умиротворение
+potion.effect.tranquility=Слегка сверкающее зелье
+splash_potion.effect.tranquility=Слегка сверкающее взрывающееся зелье
+lingering_potion.effect.tranquility=Слегка сверкающее оседающее зелье
+tipped_arrow.effect.tranqulity=Слегка сверкающая стрела
+
+effect.walking_corpse=Ходячий труп
+potion.effect.walking_corpse=Мерцающее зелье
+splash_potion.effect.walking_corpse=Мерцающее взрывающееся зелье
+lingering_potion.effect.walking_corpse=Мерцающее оседающее зелье
+tipped_arrow.effect.walking_corpse=Мерцающая стрела
+
+item.slightly_shiny_powder.name=Слегка сверкающий порошок
+item.slightly_shiny_bottle.name=Слегка сверкающая бутыль
+item.shimmering_flask.name=Мерцающая склянка
+
+item.slightly_shiny_powder.tooltip=Имеет очень успокаивающий запах
+item.slightly_shiny_bottle.tooltip=Субстанция внутри имеет очень успокаивающий запах
+item.shimmering_flask.tooltip=Субстанция внутри имеет отличительный циановый оттенок и странно знакомый запах

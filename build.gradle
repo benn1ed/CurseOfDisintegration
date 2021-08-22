@@ -14,7 +14,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0'
+version = '1.1.0'
 group = 'benn1ed.curseofdisintegration' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'CurseOfDisintegration-1.12.2'
 
@@ -61,7 +61,7 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
-
+	
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
@@ -88,7 +88,7 @@ jar {
         attributes([
             "Specification-Title": "CurseOfDisintegration-1.12.2",
             "Specification-Vendor": "benn1ed",
-            "Specification-Version": "1.0.0", // We are version 1 of ourselves
+            "Specification-Version": "${version}", // We are version 1 of ourselves
             "Implementation-Title": "benn1ed.curseofdisintegration",
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"benn1ed",

@@ -1,14 +1,12 @@
 package benn1ed.curseofdisintegration.capability;
 
-import benn1ed.curseofdisintegration.CurseOfDisintegration;
-import benn1ed.curseofdisintegration.DisintegrationDamageSource;
-import benn1ed.curseofdisintegration.client.DisintegrationBar;
-import benn1ed.curseofdisintegration.network.NetPacketDIValue;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import benn1ed.curseofdisintegration.*;
+import benn1ed.curseofdisintegration.client.*;
+import benn1ed.curseofdisintegration.network.*;
+import net.minecraft.client.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public interface IDisintegration
 {
@@ -17,6 +15,14 @@ public interface IDisintegration
 	void setValue(short value);
 	
 	void incrementValue(short value);
+	
+	float getMultiplier();
+	
+	void setMultiplier(float value);
+	
+	boolean getDisintegrateOnMax();
+	
+	void setDisintegrateOnMax(boolean value);
 	
 	short getMaxDisintegration();
 	

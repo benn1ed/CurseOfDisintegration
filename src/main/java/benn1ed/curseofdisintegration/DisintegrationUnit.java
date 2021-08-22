@@ -1,7 +1,7 @@
 package benn1ed.curseofdisintegration;
 
-import benn1ed.curseofdisintegration.config.ModConfig;
-import benn1ed.curseofdisintegration.util.Utils;
+import benn1ed.curseofdisintegration.config.*;
+import benn1ed.curseofdisintegration.util.*;
 
 public class DisintegrationUnit
 {

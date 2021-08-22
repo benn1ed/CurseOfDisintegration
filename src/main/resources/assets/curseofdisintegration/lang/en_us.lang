@@ -3,3 +3,23 @@ death.attack.curseofdisintegration.disintegration.type1=%s comprehended the minu
 death.attack.curseofdisintegration.disintegration.type2=%s now doesn't be
 death.attack.curseofdisintegration.disintegration.type3=%s released too much adrenaline
 death.attack.curseofdisintegration.disintegration.type4=The reality doesn't support %s anymore
+
+effect.tranquility=Tranquility
+potion.effect.tranquility=Slightly Shiny Potion
+splash_potion.effect.tranquility=Slightly Shiny Splash Potion
+lingering_potion.effect.tranquility=Slightly Shiny Lingering Potion
+tipped_arrow.effect.tranqulity=Slightly Shiny Arrow
+
+effect.walking_corpse=Walking Corpse
+potion.effect.walking_corpse=Shimmering Potion
+splash_potion.effect.walking_corpse=Shimmering Splash Potion
+lingering_potion.effect.walking_corpse=Shimmering Lingering Potion
+tipped_arrow.effect.walking_corpse=Shimmering Arrow
+
+item.slightly_shiny_powder.name=Slightly Shiny Powder
+item.slightly_shiny_bottle.name=Slightly Shiny Bottle
+item.shimmering_flask.name=Shimmering Flask
+
+item.slightly_shiny_powder.tooltip=It has a very calming smell
+item.slightly_shiny_bottle.tooltip=The substance inside has a very calming smell
+item.shimmering_flask.tooltip=The substance inside has a distinctive cyan tint and an oddly familiar scent

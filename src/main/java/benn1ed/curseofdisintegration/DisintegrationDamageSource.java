@@ -1,13 +1,14 @@
 package benn1ed.curseofdisintegration;
 
-import benn1ed.curseofdisintegration.util.Utils;
-import net.minecraft.util.DamageSource;
+import benn1ed.curseofdisintegration.util.*;
+import net.minecraft.util.*;
 
 public class DisintegrationDamageSource extends DamageSource
 {
 	public DisintegrationDamageSource(String damageTypeIn)
 	{
 		super(damageTypeIn);
+		setDamageBypassesArmor().setDamageIsAbsolute();
 	}
 	
 	@Override
