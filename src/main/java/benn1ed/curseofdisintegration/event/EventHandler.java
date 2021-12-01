@@ -48,7 +48,8 @@ public class EventHandler
 			ItemManager.registerItems(event.getRegistry());
 		}
 	}
-		
+	
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onItemTooltip(ItemTooltipEvent event)
 	{
